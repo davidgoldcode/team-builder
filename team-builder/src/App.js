@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Form from './Form'
+import List from './List'
 
 const initialFormValues = {
   name: '',
@@ -11,6 +12,7 @@ const initialFormValues = {
 function App() {
   const [list, setList] = useState([])
   const [formValues, setFormValues] = useState(initialFormValues)
+  const [memberToEdit, setMemberToEdit] = useState({})
 
   const updateForm = (inputName, inputValue) => {
     setFormValues({...formValues, [inputName]: inputValue})
@@ -30,12 +32,19 @@ function App() {
     setFormValues(initialFormValues);
   }
 
-
   return (
     <div className="App">
       <header className="App-header">
-        <Form  updateForm={updateForm} submitForm={submitForm} values={formValues}/>
+        <Form  updateForm={updateForm} submitForm={submitForm} values={formValues} memberToEdit={memberToEdit} setFormValues={setFormValues}/>
       </header>
+
+      {
+        list.map( item => {
+          return (
+            <List item={item} key={item.name} setFormValues={setFormValues}/>
+          )
+        })
+      }
     </div>
   );
 }

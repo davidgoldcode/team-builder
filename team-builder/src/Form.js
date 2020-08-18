@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function Form (props) {
-    const {values, updateForm, submitForm} = props
+    const {values, updateForm, submitForm, memberToEdit, setFormValues} = props
 
     const onChange = evt => {
         const { name, value } = evt.target
@@ -13,19 +13,20 @@ export default function Form (props) {
         submitForm()
     }
 
-    const disableButton = (values) => {
-        return !values.username || !values.email || !values.role ? true : false
-    }
+
+    useEffect(() => {
+        setFormValues(memberToEdit)
+        console.log(values)
+    }, [memberToEdit])
     
     return (
-        <form class='form-container' onSubmit={onSubmit}>
-            <div class='header'>
-                <h2> Add to the list: </h2>
-                <button disabled={disableButton}> Submit</button>
+        <form className='form-container' onSubmit={onSubmit}>
+            <div className='header'>
+                <h2> Add an amazing name to the list: </h2>
             </div>
 
-            <div class='inputs'>
-                <div class='input-name'>
+            <div className='inputs'>
+                <div className='input-name'>
                     <label>Name:&nbsp;
                         <input
                         value={values.name}
@@ -37,7 +38,7 @@ export default function Form (props) {
                     </label>
                 </div>
 
-                <div class='input-email'>
+                <div className='input-email'>
                     <label>Email:&nbsp;
                         <input
                         value={values.email}
@@ -49,7 +50,7 @@ export default function Form (props) {
                     </label>
                 </div>
 
-                <div class='input-role'>
+                <div className='input-role'>
                     <label>Role:&nbsp;
                         <select 
                         value={values.role}
@@ -63,6 +64,7 @@ export default function Form (props) {
                     </label>
                 </div>
             </div>
+            <button disabled={!values.username || !values.email || !values.role ? false  : true}> Submit</button>
         </form>
     )
 }
