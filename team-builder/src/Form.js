@@ -14,10 +14,10 @@ export default function Form (props) {
     }
 
 
-    useEffect(() => {
-        setFormValues(memberToEdit)
-        console.log(values)
-    }, [memberToEdit])
+    // useEffect(() => {
+    //     setFormValues(memberToEdit)
+    //     console.log(values)
+    // }, [memberToEdit])
     
     return (
         <form className='form-container' onSubmit={onSubmit}>
